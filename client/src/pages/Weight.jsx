@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import useStore from '../store/useStore';
 
 export default function Weight() {
-  const { weightLog, logWeight } = useStore();
-  const [weight, setWeight] = useState('');
+    const { weightLog, addWeight } = useStore() 
+    const [weight, setWeight] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    logWeight({ date: new Date().toLocaleDateString(), weight: Number(weight) });
-    setWeight('');
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        addWeight(new Date().toLocaleDateString(), Number(weight));
+        console.log('submitted')
+        setWeight('');
+    };
 
   return (
     <div>

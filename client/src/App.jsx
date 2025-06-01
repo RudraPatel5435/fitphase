@@ -14,19 +14,21 @@ export default function App() {
     const [user, setUser] = useState(null)
 
     useEffect(()=>{
-        const saved = localStorage.getItem('userID')
+        const saved = localStorage.getItem('username')
         if(saved){
-            setUser({_id: saved})
+            setUser(saved)
         }
-    }, [])
+    }, [user])
 
     useEffect(() => {
-        if (user?._id) {
-            useStore.getState().setUserId(user._id);
+        if (user) {
+            // useStore.getState().setUserId(user._id);
+            useStore.getState().setUsername(user)
 
-            getUserData(user._id).then((data) => {
+            getUserData(user).then((data) => {
                 useStore.setState({
-                    macros: data.macros || {},
+                    macros: data.macros|| {},
+                    // tarMacros: data.tarMacros || {},
                     weightLog: data.weightLog || [],
                     workouts: data.workouts || [],
                     phases: data.phases || [],

@@ -3,8 +3,10 @@ import { saveUserData, getUserData } from "../api";
 
 const useStore = create((set, get) => ({
   // Logged-in user's MongoDB ID
-  userId: null,
-  setUserId: (id) => set({ userId: id }),
+  // userId: null,
+  // setUserId: (id) => set({ userId: id }),
+  username: null,
+  setUsername: (name) => set({username: name}),
 
   macros: {
     protein: 0,
@@ -19,11 +21,13 @@ const useStore = create((set, get) => ({
   },
 
   weightLog: [],
-  addWeight: (entry) => {
-    const updated = [...get().weightLog, entry];
+  addWeight: (date, weight) => {
+    console.log('in useStore')
+    const updated = [...get().weightLog, {date, weight}];
     set({ weightLog: updated });
-    const { userId } = get();
-    if (userId) saveUserData(userId, { weightLog: updated });
+    const { username } = get();
+    console.log('username:', username);
+    if (username) saveUserData(username, { weightLog: updated });
   },
 
   workouts: [],
